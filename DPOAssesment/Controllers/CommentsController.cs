@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DPOAssesment.DAL;
@@ -21,6 +22,12 @@ namespace DPOAssesment.Controllers
         // GET: api/Comments
         public IEnumerable<Comment> GetComments()
         {
+            string urlOrderId = HttpContext.Current.Request.QueryString["OrderId"];
+            int orderId;
+            if (urlOrderId != null && int.TryParse(urlOrderId, out orderId))
+            {
+                return db.Comments.Where(c => c.OrderId == orderId).ToList();
+            }
             return db.Comments.ToList();
         }
 
