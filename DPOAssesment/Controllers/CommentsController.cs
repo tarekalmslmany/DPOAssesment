@@ -19,9 +19,9 @@ namespace DPOAssesment.Controllers
         private DataContext db = new DataContext();
 
         // GET: api/Comments
-        public IQueryable<Comment> GetComments()
+        public IEnumerable<Comment> GetComments()
         {
-            return db.Comments;
+            return db.Comments.ToList();
         }
 
         // GET: api/Comments/5
